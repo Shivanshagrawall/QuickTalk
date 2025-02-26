@@ -97,6 +97,9 @@ const LeftSideBar = () => {
     const userChatsSnapShot=await getDoc(userChatsRef);
     const userChatsData=userChatsSnapShot.data();
     const chatIndex=userChatsData.chatsData.findIndex((c)=>c.messageId===item.messageId);
+    if(chatIndex === -1 ){ /* Message Seen change here*/
+      return;
+    }
     userChatsData.chatsData[chatIndex].messageSeen=true;
     await updateDoc(userChatsRef,{
       chatsData:userChatsData.chatsData
